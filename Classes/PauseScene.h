@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class Pause : public cocos2d::Scene
+class PauseScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -11,7 +11,7 @@ public:
     virtual bool init();
 
     // implement the "static create()" method manually
-    CREATE_FUNC(Pause);
+    CREATE_FUNC(PauseScene);
 };
 
 #endif // __PAUSE_SCENE_H__

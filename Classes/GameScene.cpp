@@ -27,6 +27,24 @@ bool GameScene::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    auto pauseItem = MenuItemImage::create("assets/res/GameScene/img_button_pause.png",
+                                           "assets/res/GameScene/img_button_pause_clicked.png",
+                                           CC_CALLBACK_1(GameScene::goToPauseScene, this));
+
+
+    int pauseWidth = pauseItem->getContentSize().width;
+    int pauseHeight = pauseItem->getContentSize().height;
+    int quarterPauseWidth = pauseItem->getContentSize().width / 4;
+    int quarterPauseHeight = pauseItem->getContentSize().height / 4;
+
+    int pauseButtonX = pauseWidth - quarterPauseWidth + origin.x;
+    int pauseButtonY = visibleSize.height - pauseHeight + quarterPauseHeight + origin.y;
+
+    pauseItem->setPosition(Point(pauseButtonX, pauseButtonY));
+
+    auto menu = Menu::create(pauseItem, NULL);
+    menu->setPosition(Point::ZERO);
+    this->addChild(menu);
     return true;
 }
 

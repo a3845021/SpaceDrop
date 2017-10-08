@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class GameOver : public cocos2d::Scene
+class GameOverScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -11,7 +11,7 @@ public:
     virtual bool init();
 
     // implement the "static create()" method manually
-    CREATE_FUNC(GameOver);
+    CREATE_FUNC(GameOverScene);
 };
 
 #endif // __GAME_OVER_SCENE_H__

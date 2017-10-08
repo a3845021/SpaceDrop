@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class MainMenu : public cocos2d::Scene
+class MainMenuScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -11,7 +11,9 @@ public:
     virtual bool init();
     
     // implement the "static create()" method manually
-    CREATE_FUNC(MainMenu);
+    CREATE_FUNC(MainMenuScene);
+
+    void goToGameScene(cocos2d::Ref *pSender);
 };
 
 #endif // __MAIN_MENU_SCENE_H__

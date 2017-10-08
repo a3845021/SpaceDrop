@@ -7,9 +7,9 @@
 
 USING_NS_CC;
 
-Scene* Game::createScene()
+Scene* GameScene::createScene()
 {
-    return Game::create();
+    return GameScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -20,7 +20,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool Game::init()
+bool GameScene::init()
 {
     //////////////////////////////
     // 1. super init first

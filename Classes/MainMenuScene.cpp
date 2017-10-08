@@ -1,11 +1,12 @@
 #include "MainMenuScene.h"
+#include "GameScene.h"
 #include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
-Scene* MainMenu::createScene()
+Scene* MainMenuScene::createScene()
 {
-    return MainMenu::create();
+    return MainMenuScene::create();
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -16,7 +17,7 @@ static void problemLoading(const char* filename)
 }
 
 // on "init" you need to initialize your instance
-bool MainMenu::init()
+bool MainMenuScene::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -29,4 +30,11 @@ bool MainMenu::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     return true;
+}
+
+void MainMenuScene::goToGameScene(cocos2d::Ref *pSender)
+{
+    auto scene = GameScene::createScene();
+
+    Director::getInstance()-> replaceScene(scene);
 }

@@ -3,7 +3,7 @@
 
 #include "cocos2d.h"
 
-class Game : public cocos2d::Scene
+class GameScene : public cocos2d::Scene
 {
 public:
     static cocos2d::Scene* createScene();
@@ -11,7 +11,7 @@ public:
     virtual bool init();
 
     // implement the "static create()" method manually
-    CREATE_FUNC(Game);
+    CREATE_FUNC(GameScene);
 };
 
 #endif // __GAME_SCENE_H__

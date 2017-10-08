@@ -29,3 +29,15 @@ bool GameScene::init() {
 
     return true;
 }
+
+void GameScene::goToPauseScene(cocos2d::Ref *pSender) {
+    auto scene = PauseScene::createScene();
+
+    Director::getInstance()->pushScene(scene);
+}
+
+void GameScene::goToGameOverScene(cocos2d::Ref *pSender) {
+    auto scene = GameOverScene::createScene();
+
+    Director::getInstance()->replaceScene(scene);
+}

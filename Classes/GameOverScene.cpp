@@ -29,3 +29,16 @@ bool GameOverScene::init() {
 
     return true;
 }
+
+void GameOverScene::goToGameScene(cocos2d::Ref *pSender) {
+    auto scene = GameScene::createScene();
+
+    Director::getInstance()->replaceScene(scene);
+}
+
+void GameOverScene::goToMainMenuScene(cocos2d::Ref *pSender) {
+    auto scene = MainMenuScene::createScene();
+
+    Director::getInstance()->replaceScene(scene);
+}
+

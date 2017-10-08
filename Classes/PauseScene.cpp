@@ -29,3 +29,23 @@ bool PauseScene::init() {
 
     return true;
 }
+
+void PauseScene::goToMainMenuScene(cocos2d::Ref *pSender) {
+    auto scene = MainMenuScene::createScene();
+
+    Director::getInstance()->popScene();
+    Director::getInstance()->replaceScene(scene);
+}
+
+
+void PauseScene::resume(cocos2d::Ref *pSender) {
+    Director::getInstance()->popScene();
+}
+
+void PauseScene::retry(cocos2d::Ref *pSender) {
+    auto scene = GameScene::createScene();
+
+    Director::getInstance()->popScene();
+    Director::getInstance()->replaceScene(scene);
+
+}

@@ -2,6 +2,7 @@
 #define __MAIN_MENU_SCENE_H__
 
 #include "cocos2d.h"
+#include "GameScene.h"
 
 class MainMenuScene : public cocos2d::Scene
 {

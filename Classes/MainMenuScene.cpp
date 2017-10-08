@@ -19,6 +19,20 @@ bool MainMenuScene::init() {
     if (!Scene::init()) {
         return false;
     }
+
+
+    auto visibleSize = Director::getInstance()->getVisibleSize();
+    auto menuTitle = MenuItemImage::create("assets/res/MainMenuScene/img_game_title.png",
+                                           "assets/res/MainMenuScene/img_game_title.png");
+
+    auto playItem = MenuItemImage::create("assets/res/MainMenuScene/img_button_play.png",
+                                          "assets/res/MainMenuScene/img_button_play_clicked.png",
+                                          CC_CALLBACK_1(MainMenuScene::goToGameScene,this));
+
+    auto menu = Menu::create(menuTitle,playItem,NULL);
+    menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
+    this->addChild(menu);
+
     return true;
 }
 

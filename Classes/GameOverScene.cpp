@@ -25,8 +25,22 @@ bool GameOverScene::init() {
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+    auto gameOverTitle = MenuItemImage::create("assets/res/GameOverScene/img_game_over.png",
+                                               "assets/res/GameOverScene/img_game_over.png");
+
+    auto retryItem = MenuItemImage::create("assets/res/GameOverScene/img_button_retry.png",
+                                           "assets/res/GameOverScene/img_button_retry_clicked.png",
+                                           CC_CALLBACK_1(GameOverScene::goToGameScene, this));
+
+    auto mainMenuItem = MenuItemImage::create("assets/res/GameOverScene/img_button_menu.png",
+                                              "assets/res/GameOverScene/img_button_menu_clicked.png",
+                                              CC_CALLBACK_1(GameOverScene::goToMainMenuScene,
+                                                            this));
+
+    auto menu = Menu::create(gameOverTitle, retryItem, mainMenuItem, NULL);
+    menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
+    this->addChild(menu);
     return true;
 }
 

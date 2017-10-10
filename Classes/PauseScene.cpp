@@ -25,7 +25,23 @@ bool PauseScene::init() {
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+    auto resumeItem = MenuItemImage::create("assets/res/PauseScene/img_button_resume.png",
+                                            "assets/res/PauseScene/img_button_resume_clicked.png",
+                                            CC_CALLBACK_1(PauseScene::resume, this));
+
+    auto retryItem = MenuItemImage::create("assets/res/PauseScene/img_button_retry.png",
+                                           "assets/res/PauseScene/img_button_retry_clicked.png",
+                                           CC_CALLBACK_1(PauseScene::retry, this));
+
+    auto mainMenuItem = MenuItemImage::create("assets/res/PauseScene/img_button_menu.png",
+                                              "assets/res/PauseScene/img_button_menu_clicked.png",
+                                              CC_CALLBACK_1(PauseScene::goToMainMenuScene, this));
+
+    auto menu = Menu::create(resumeItem, retryItem, mainMenuItem, NULL);
+
+    menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
+    this->addChild(menu);
 
     return true;
 }

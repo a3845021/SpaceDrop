@@ -50,12 +50,14 @@ void PauseScene::goToMainMenuScene(cocos2d::Ref *pSender) {
     auto scene = MainMenuScene::createScene();
 
     Director::getInstance()->popScene();
-    Director::getInstance()->replaceScene(scene);
+    Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 }
 
 
 void PauseScene::resume(cocos2d::Ref *pSender) {
+    //todo implement your own transition fade for pop method
     Director::getInstance()->popScene();
+
 }
 
 void PauseScene::retry(cocos2d::Ref *pSender) {
@@ -63,5 +65,4 @@ void PauseScene::retry(cocos2d::Ref *pSender) {
 
     Director::getInstance()->popScene();
     Director::getInstance()->replaceScene(scene);
-
 }

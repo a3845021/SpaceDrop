@@ -47,12 +47,12 @@ bool GameOverScene::init() {
 void GameOverScene::goToGameScene(cocos2d::Ref *pSender) {
     auto scene = GameScene::createScene();
 
-    Director::getInstance()->replaceScene(scene);
+    Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 }
 
 void GameOverScene::goToMainMenuScene(cocos2d::Ref *pSender) {
     auto scene = MainMenuScene::createScene();
 
-    Director::getInstance()->replaceScene(scene);
+    Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 }
 

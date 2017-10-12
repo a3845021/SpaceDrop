@@ -25,6 +25,7 @@ bool GameOverScene::init() {
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
+    Point origin = Director::getInstance()->getVisibleOrigin();
 
     auto gameOverTitle = MenuItemImage::create("assets/res/GameOverScene/img_game_over.png",
                                                "assets/res/GameOverScene/img_game_over.png");
@@ -41,6 +42,15 @@ bool GameOverScene::init() {
     auto menu = Menu::create(gameOverTitle, retryItem, mainMenuItem, NULL);
     menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
     this->addChild(menu);
+
+    auto backgroundImage = Sprite::create("assets/res/GameOverScene/img_background_port.png");
+    float scale = MAX(visibleSize.width / backgroundImage->getContentSize().width,
+                      visibleSize.height / backgroundImage->getContentSize().height);
+    backgroundImage->setScale(scale);
+    backgroundImage->setPosition(
+            Point(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+    this->addChild(backgroundImage, -1);
+
     return true;
 }
 

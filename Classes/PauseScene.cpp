@@ -25,6 +25,7 @@ bool PauseScene::init() {
     }
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
+    Point origin = Director::getInstance()->getVisibleOrigin();
 
     auto resumeItem = MenuItemImage::create("assets/res/PauseScene/img_button_resume.png",
                                             "assets/res/PauseScene/img_button_resume_clicked.png",
@@ -42,6 +43,16 @@ bool PauseScene::init() {
 
     menu->alignItemsVerticallyWithPadding(visibleSize.height / 4);
     this->addChild(menu);
+
+    auto backgroundImage = Sprite::create("assets/res/PauseScene/img_background_port.png");
+    float scale = MAX(visibleSize.width / backgroundImage->getContentSize().width,
+                      visibleSize.height / backgroundImage->getContentSize().height);
+    backgroundImage->setScale(scale);
+
+    backgroundImage->setPosition(Point(origin.x + visibleSize.width / 2,
+                                       origin.y + visibleSize.height / 2));
+
+    this->addChild(backgroundImage, -1);
 
     return true;
 }

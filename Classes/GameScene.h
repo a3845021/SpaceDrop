@@ -8,6 +8,11 @@
 class GameScene : public cocos2d::Scene
 {
 public:
+    cocos2d::Sprite *backgroundSpriteArray[2];
+    cocos2d::Sprite *playerSprite;
+
+    std::vector<cocos2d::Sprite *> asteroidVector;
+
     static cocos2d::Scene* createScene();
 
     virtual bool init();
@@ -18,6 +23,11 @@ public:
 
     // implement the "static create()" method manually
     CREATE_FUNC(GameScene);
+
+    void update(float deltaTime);
+
+    void spawnAsteroid(float deltaTime);
+
 };
 
 #endif // __GAME_SCENE_H__

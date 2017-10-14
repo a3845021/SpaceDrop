@@ -128,6 +128,11 @@ void GameScene::spawnAsteroid(float deltaTime) {
             "assets/res/GameScene/img_asteroid_%i_port.png", asteroidIndex);
 
     Sprite *tempAsteroid = Sprite::create(asteroidString->getCString());
+    //min 2 seconds max 10
+    int randomRotateDuration = (arc4random() % 8) + 2;
+    auto twoSecondFullRotate = RotateBy::create(randomRotateDuration, 360);
+    auto foreverRotateAction = RepeatForever::create(twoSecondFullRotate);
+    *tempAsteroid->runAction(foreverRotateAction);
 
     int xRandomPosition = (arc4random() %
                            (int) (visibleSize.width - (tempAsteroid->getContentSize().width / 2))) +

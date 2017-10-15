@@ -9,7 +9,11 @@
 USING_NS_CC;
 
 Scene *GameScene::createScene() {
-    return GameScene::create();
+    auto scene = GameScene::createWithPhysics();
+    auto layer = GameScene::create();
+    layer->setPhysicsWorld(scene->getPhysicsWorld());
+    scene->addChild(layer);
+    return scene;
 }
 
 // Print useful error message instead of segfaulting when files are not there.
@@ -61,6 +65,10 @@ bool GameScene::init() {
     }
 
     playerSprite = Sprite::create("assets/res/GameScene/img_space_pod_port.png");
+    auto playerSpriteBody = PhysicsBody::createCircle(playerSprite->getContentSize().width / 2);
+    playerSpriteBody->setContactTestBitmask(true);
+    playerSpriteBody->setDynamic(true);
+    playerSprite->setPhysicsBody(playerSpriteBody);
     playerSprite->setPosition(Point(visibleSize.width / 2 + origin.x,
                                     pauseItem->getPosition().y - (pauseItem->
                                             getContentSize().height / 2) - (playerSprite->
@@ -85,6 +93,10 @@ bool GameScene::init() {
     isTouching = false;
     touchPosition = 0;
 
+    //collision detection
+    auto contactListener = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
     return true;
 }
@@ -187,6 +199,11 @@ void GameScene::spawnAsteroid(float deltaTime) {
     tempAsteroid->setPosition(
             Point(xRandomPosition + origin.x, -tempAsteroid->getContentSize().height + origin.y));
     asteroidVector.push_back(tempAsteroid);
+    auto asteroidPhysicsBody = PhysicsBody::createCircle(
+            asteroidVector[asteroidVector.size() - 1]->getContentSize().width / 2);
+    asteroidPhysicsBody->setContactTestBitmask(true);
+    asteroidPhysicsBody->setDynamic(true);
+    asteroidVector[asteroidVector.size() - 1]->setPhysicsBody(asteroidPhysicsBody);
     this->addChild(asteroidVector[asteroidVector.size() - 1], -1);
 }
 
@@ -208,5 +225,11 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) {
 
 void GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event) {
     onTouchEnded(touch, event);
+}
+
+bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
+    __android_log_print(ANDROID_LOG_DEBUG, "TestOne", "collision detected");
+    goToGameOverScene(this);
+    return true;
 }
 

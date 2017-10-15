@@ -1,0 +1,10 @@
+*** GAME DEVELOPER LOG ***
+
+*** 15-10-2018 ***
+
+Things to do before release
+    - Implement accelerometer support into the game
+    - Add a scoring feature
+    - Increase the speed of the background as the game progresses, similar to the Super Jet Bunny game
+    - Add multiple levels
+    - Implement a power up feature

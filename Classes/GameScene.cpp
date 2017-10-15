@@ -4,6 +4,8 @@
 
 #include "GameScene.h"
 
+//debug printing
+
 USING_NS_CC;
 
 Scene *GameScene::createScene() {
@@ -68,6 +70,22 @@ bool GameScene::init() {
     this->scheduleUpdate();
 
     this->schedule(schedule_selector(GameScene::spawnAsteroid), 1.0);
+
+    //handle touch input
+    auto touchListener = EventListenerTouchOneByOne::create();
+    //prevent layers underneath from where the touch occurred to detect the touch
+    touchListener->setSwallowTouches(true);
+    touchListener->onTouchBegan = CC_CALLBACK_2(GameScene::onTouchBegan, this);
+    touchListener->onTouchMoved = CC_CALLBACK_2(GameScene::onTouchMoved, this);
+    touchListener->onTouchEnded = CC_CALLBACK_2(GameScene::onTouchEnded, this);
+    touchListener->onTouchCancelled = CC_CALLBACK_2(GameScene::onTouchCancelled, this);
+
+    //enable event detection
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
+    isTouching = false;
+    touchPosition = 0;
+
+
     return true;
 }
 
@@ -117,6 +135,34 @@ void GameScene::update(float deltaTime) {
             asteroidVector.erase(asteroidVector.begin() + index);
         }
     }
+
+    //handle player touch inputs
+    if (isTouching) {
+        //check which half of the screen is being touched
+        if (touchPosition < (visibleSize.width / 2 + origin.x)) {
+            //move the player sprite left
+            playerSprite->setPositionX(
+                    playerSprite->getPosition().x -
+                    (0.5 * (visibleSize.width + origin.x) * deltaTime));
+            //check to prevent the player sprite from going off the screen (left side)
+            if (playerSprite->getPosition().x <=
+                origin.x + (playerSprite->getContentSize().width / 2)) {
+                playerSprite->setPositionX(playerSprite->getContentSize().width / 2 + origin.x);
+            }
+        } else {
+            //move the player sprite right
+            playerSprite->setPositionX(
+                    playerSprite->getPosition().x +
+                    (0.5 * (visibleSize.width + origin.x) * deltaTime));
+            //check to prevent the player sprite from going off the screen (right side)
+            if (playerSprite->getPosition().x >=
+                (visibleSize.width + origin.x) - (playerSprite->getContentSize().width / 2)) {
+                playerSprite->setPositionX(
+                        (visibleSize.width + origin.x) -
+                        (playerSprite->getContentSize().width / 2));
+            }
+        }
+    }
 }
 
 void GameScene::spawnAsteroid(float deltaTime) {
@@ -143,3 +189,24 @@ void GameScene::spawnAsteroid(float deltaTime) {
     asteroidVector.push_back(tempAsteroid);
     this->addChild(asteroidVector[asteroidVector.size() - 1], -1);
 }
+
+bool GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *event) {
+    isTouching = true;
+    touchPosition = touch->getLocation().x;
+    __android_log_print(ANDROID_LOG_DEBUG, "TestOne", "position : %f", touchPosition);
+    //touch event consumed, no more propagation
+    return true;
+}
+
+void GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *event) {
+    //not used at the moment
+}
+
+void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) {
+    isTouching = false;
+}
+
+void GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event) {
+    onTouchEnded(touch, event);
+}
+

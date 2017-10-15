@@ -51,6 +51,9 @@ public:
 
     bool onContactBegin(cocos2d::PhysicsContact &contact);
 
+    //accelerometer handling
+    void onAcceleration(cocos2d::Acceleration *acc, cocos2d::Event *event);
+
 private:
     cocos2d::PhysicsWorld *mWorld;
 

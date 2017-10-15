@@ -102,6 +102,14 @@ bool GameScene::init() {
     CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(
             "assets/res/audio/effect_crash.wav");
 
+    //accelerometer implementation
+    Device::setAccelerometerEnabled(true);
+    auto accelerationListener = EventListenerAcceleration::create(
+            CC_CALLBACK_2(GameScene::onAcceleration, this));
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(
+            accelerationListener,
+            this);
+
     return true;
 }
 
@@ -231,6 +239,11 @@ void GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *event) {
 
 void GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event) {
     onTouchEnded(touch, event);
+}
+
+void GameScene::onAcceleration(cocos2d::Acceleration *acc, cocos2d::Event *event) {
+    __android_log_print(ANDROID_LOG_DEBUG, "TestOne", "device moved x:%d, y:%d, z:%d", acc->x,
+                        acc->y, acc->z);
 }
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {

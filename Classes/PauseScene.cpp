@@ -58,6 +58,8 @@ bool PauseScene::init() {
 }
 
 void PauseScene::goToMainMenuScene(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("assets/res/audio/effect_button_click.wav");
+
     auto scene = MainMenuScene::createScene();
 
     Director::getInstance()->popScene();
@@ -66,12 +68,16 @@ void PauseScene::goToMainMenuScene(cocos2d::Ref *pSender) {
 
 
 void PauseScene::resume(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("assets/res/audio/effect_button_click.wav");
+
     //todo implement your own transition fade for pop method
     Director::getInstance()->popScene();
 
 }
 
 void PauseScene::retry(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect("assets/res/audio/effect_button_click.wav");
+
     auto scene = GameScene::createScene();
 
     Director::getInstance()->popScene();

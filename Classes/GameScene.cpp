@@ -98,10 +98,16 @@ bool GameScene::init() {
     contactListener->onContactBegin = CC_CALLBACK_1(GameScene::onContactBegin, this);
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 
+    //preload audio
+    CocosDenshion::SimpleAudioEngine::getInstance()->preloadEffect(
+            "assets/res/audio/effect_crash.wav");
+
     return true;
 }
 
 void GameScene::goToPauseScene(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
+            "assets/res/audio/effect_button_click.wav");
     auto scene = PauseScene::createScene();
 
     Director::getInstance()->pushScene(TransitionFade::create(1.0, scene));
@@ -229,6 +235,8 @@ void GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *event) {
 
 bool GameScene::onContactBegin(cocos2d::PhysicsContact &contact) {
     __android_log_print(ANDROID_LOG_DEBUG, "TestOne", "collision detected");
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
+            "assets/res/audio/effect_crash.wav");
     goToGameOverScene(this);
     return true;
 }

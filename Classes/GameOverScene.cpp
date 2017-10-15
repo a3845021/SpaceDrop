@@ -55,12 +55,16 @@ bool GameOverScene::init() {
 }
 
 void GameOverScene::goToGameScene(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
+            "assets/res/audio/effect_button_click.wav");
     auto scene = GameScene::createScene();
 
     Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));
 }
 
 void GameOverScene::goToMainMenuScene(cocos2d::Ref *pSender) {
+    CocosDenshion::SimpleAudioEngine::getInstance()->playEffect(
+            "assets/res/audio/effect_button_click.wav");
     auto scene = MainMenuScene::createScene();
 
     Director::getInstance()->replaceScene(TransitionFade::create(1.0, scene));

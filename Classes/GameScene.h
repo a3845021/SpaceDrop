@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "PauseScene.h"
 #include "GameOverScene.h"
+#include "SimpleAudioEngine.h"
 
 class GameScene : public cocos2d::Scene {
 public:

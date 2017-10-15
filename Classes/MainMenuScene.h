@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "GameScene.h"
+#include "SimpleAudioEngine.h"
 
 class MainMenuScene : public cocos2d::Scene
 {
